@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Math Me Not",
+  "version":"1.0",
+  "icons": {
+    "64": "ico.svg"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "<all_urls>",  
+    "webRequest",  
+    "webRequestBlocking" 
+  ],
+    "browser_action": {
+    "default_popup": "urllist.html",
+    "default_title": "Math Me Not Settings"
+},
+    "background": {
+    "scripts": ["background.js"]
+}
+}

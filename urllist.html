@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html, body {
+            width: 300px;
+            padding: 10px;
+            font-family: sans-serif;
+        }
+        .round {
+            padding: 15px;
+        }
+        #url {
+            width: 95%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="popup-content">
+        <h2>Enter URLs to block</h2>
+        <div class="round">
+            <input type="text" id="url" placeholder="e.g., google.com youtube.com">
+            <button id="addUrlsBtn">Add URLs</button>
+            <div id="status"></div>
+        </div>
+        <div id="sum"></div>
+        <div class="round">
+            <input type="number" id="ip" placeholder="Enter your answer here" />
+            <br>
+            <button id="submit">Submit</button>
+        </div>
+        <button id="clearUrlsBtn">Clear URLs</button>
+        <div id="stat"></div>
+    </div>
+    <script src="urllist.js"></script>
+</body>
+</html>
