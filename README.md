@@ -3,7 +3,7 @@ Random Firefox based extension, built with 1 week knowledge of JS, HTML and CSS.
 ONLY WORKS FOR FIREFOX OR ANY FIREFOX FORKED CLONE
 
 ## Installation
-1. Clone this repo - ```https://github.com/senrishi/Math-Me-Not.git```
+1. Clone this repo - ```git clone https://github.com/senrishi/Math-Me-Not.git```
 2. Open ```about:debugging``` in Firefox
 3. Click This Firefox from the left panel.
 4. Click Load Temporary Add-on and select the manifest.json file from the cloned repo. 
