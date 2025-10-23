@@ -12,7 +12,6 @@
         padding: 3rem 2rem;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         line-height: 1.8;
-        /* Override background to use local gold.png, matching target.css overlay */
         background-color: var(--primary-900);
         background-image: linear-gradient(
             hsl(from var(--primary-700) h s l / 0.7) 0 0
@@ -45,10 +44,8 @@
         font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         font-size: 2.2rem;
       }
-      /* Base spacing between blocks; exclude intro to remove space above URLs */
       .card > div:not(:last-child):not(.intro) { margin-block-end: 1lh; }
       .section { margin: 0; }
-      /* Tighter spacing where requested */
       .card > .intro { margin-block-end: 0; }
       .card > .section.urls { margin-block-end: 0.6lh; }
       .card > .section.math { margin-block-end: 1lh; }
@@ -87,7 +84,7 @@
         border: 1px solid hsl(from var(--primary-400) h s l / 0.35);
         cursor: pointer;
         color: var(--text-1);
-        background: hsl(0 0% 100% / 0.14); /* subtle contrast, retains dark tone */
+        background: hsl(0 0% 100% / 0.14); 
         line-height: 2;
         box-shadow: 0 2px 6px hsl(0 0% 0% / 0.35);
         transition: background-color 120ms ease, box-shadow 120ms ease, transform 80ms ease, border-color 120ms ease;
@@ -113,7 +110,6 @@
       .intro h1 { margin-block-end: 0.2lh; }
       .intro .help { margin: 0; }
 
-      /* Smooth pop-out panel animation */
       .collapse {
         overflow: hidden;
         max-height: 0;
@@ -122,12 +118,11 @@
         transition: max-height 240ms ease, opacity 200ms ease, transform 200ms ease;
       }
       .collapse.open {
-        max-height: 640px; /* ample space for content */
+        max-height: 640px; 
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* Make captcha popout ~5% wider than card */
       .captcha-panel {
         width: 105%;
         margin-left: -2.5%;
