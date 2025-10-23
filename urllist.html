@@ -1,43 +1,170 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <title>Manage Blocked URLs</title>
+    <link rel="stylesheet" href="target.css" />
     <style>
-        html, body {
-            width: 300px;
-            padding: 10px;
-            font-family: sans-serif;
-        }
-        .round {
-            padding: 15px;
-        }
-        #url {
-            width: 95%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        #status {
-            margin-top: 10px;
-            font-weight: bold;
-        }
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap');
+      body {
+        display: grid;
+        place-items: center;
+        padding: 3rem 2rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        line-height: 1.8;
+        /* Override background to use local gold.png, matching target.css overlay */
+        background-color: var(--primary-900);
+        background-image: linear-gradient(
+            hsl(from var(--primary-700) h s l / 0.7) 0 0
+          ),
+          url("gold.png");
+        background-position: top left, top left;
+        background-size: 300%;
+        animation: bg-drift 60s ease-in-out infinite alternate;
+        will-change: background-position;
+      }
+      @keyframes bg-drift {
+        0%   { background-position: 0% 0%,   0% 0%; }
+        25%  { background-position: 6% 0.6%, 4% 0%; }
+        50%  { background-position: 12% 1.2%, 8% 0.5%; }
+        75%  { background-position: 6% 0.6%, 4% 0%; }
+        100% { background-position: 0% 0%,   0% 0%; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        body { animation: none; }
+      }
+      .card {
+        max-inline-size: 460px;
+        padding: 28px;
+      }
+      .card * {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      }
+      .card h1 {
+        text-align: center;
+        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: 2.2rem;
+      }
+      /* Base spacing between blocks; exclude intro to remove space above URLs */
+      .card > div:not(:last-child):not(.intro) { margin-block-end: 1lh; }
+      .section { margin: 0; }
+      /* Tighter spacing where requested */
+      .card > .intro { margin-block-end: 0; }
+      .card > .section.urls { margin-block-end: 0.6lh; }
+      .card > .section.math { margin-block-end: 1lh; }
+
+      .label { color: var(--text-1); margin-bottom: 0.25rem; }
+
+      .input-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: hsl(from var(--surface-1) h s l / 0.5);
+        padding: 0.5ex 1ch;
+        font-size: 1.05rem;
+        border-radius: 12px;
+        color: var(--text-1);
+        backdrop-filter: blur(6px);
+      }
+      .input-box input {
+        background: transparent;
+        border: 0;
+        color: var(--text-1);
+        outline: none;
+        flex: 1;
+        line-height: 2;
+      }
+      /* Hide number spinners */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+      input[type="number"] { -moz-appearance: textfield; }
+
+      .btn {
+        margin-top: 0.5lh;
+        width: 100%;
+        padding: 1ex 2ch;
+        border-radius: 12px;
+        border: 1px solid hsl(from var(--primary-400) h s l / 0.35);
+        cursor: pointer;
+        color: var(--text-1);
+        background: hsl(0 0% 100% / 0.14); /* subtle contrast, retains dark tone */
+        line-height: 2;
+        box-shadow: 0 2px 6px hsl(0 0% 0% / 0.35);
+        transition: background-color 120ms ease, box-shadow 120ms ease, transform 80ms ease, border-color 120ms ease;
+        backdrop-filter: blur(4px);
+      }
+      .btn:hover {
+        background: hsl(0 0% 100% / 0.18);
+        box-shadow: 0 3px 8px hsl(0 0% 0% / 0.4);
+        border-color: hsl(from var(--primary-300) h s l / 0.45);
+      }
+      .btn:active {
+        transform: translateY(0.5px);
+        background: hsl(0 0% 100% / 0.12);
+      }
+      .btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px hsl(0 0% 100% / 0.25), 0 2px 6px hsl(0 0% 0% / 0.35);
+      }
+      #clearUrlsBtn { margin-top: 1lh; }
+      .help, #status, #stat, #sum { text-align: center; }
+      #sum { color: var(--text-1); margin-bottom: 0.6lh; }
+      #status { margin-top: 0.2lh; }
+      .intro h1 { margin-block-end: 0.2lh; }
+      .intro .help { margin: 0; }
+
+      /* Smooth pop-out panel animation */
+      .collapse {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: max-height 240ms ease, opacity 200ms ease, transform 200ms ease;
+      }
+      .collapse.open {
+        max-height: 640px; /* ample space for content */
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Make captcha popout ~5% wider than card */
+      .captcha-panel {
+        width: 105%;
+        margin-left: -2.5%;
+      }
     </style>
-</head>
-<body>
-    <div id="popup-content">
-        <h2>Enter URLs to block</h2>
-        <div class="round">
-            <input type="text" id="url" placeholder="e.g., google.com youtube.com">
-            <button id="addUrlsBtn">Add URLs</button>
-            <div id="status"></div>
+  </head>
+  <body>
+    <div class="card">
+      <div class="intro">
+        <h1>MATH ME NOT</h1>
+        <p class="help">Enter URLs to add to block list</p>
+      </div>
+
+      <div class="section urls">
+        <div class="label">URLs</div>
+        <div class="input-box">
+          <input type="text" id="url" placeholder="e.g., google.com youtube.com" />
         </div>
-        <div id="sum"></div>
-        <div class="round">
-            <input type="number" id="ip" placeholder="Enter your answer here" />
-            <br>
-            <button id="submit">Submit</button>
+        <button class="btn" id="addUrlsBtn">Add URLs</button>
+        <div id="status"></div>
+      </div>
+
+      <div class="section math">
+        <div id="sum">Solve captcha to clear URLs from block list</div>
+        <button class="btn" id="captchaBtn">Captcha</button>
+        <div id="captchaPanel" class="collapse captcha-panel" style="margin-top: 0.6lh;">
+          <div class="help" style="margin-bottom: 0.4lh; text-align: left;">What is the square of the position of the *? Position numbering follows typical numpad style (1 - 16 from top left).</div>
+          <pre id="captchaGrid" style="text-align: center; color: var(--text-1);"></pre>
+          <div class="input-box" style="min-inline-size: 360px; margin-inline: auto;">
+            <input type="number" id="captchaAnswer" placeholder="Enter square of position" />
+          </div>
+          <button class="btn" id="captchaSubmit">Clear URLs</button>
         </div>
-        <button id="clearUrlsBtn">Clear URLs</button>
         <div id="stat"></div>
+      </div>
     </div>
+
     <script src="urllist.js"></script>
-</body>
-</html>
+  </body>
+  </html>

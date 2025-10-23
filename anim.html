@@ -1,51 +1,120 @@
 <!doctype html>
 <html>
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <title>Math Me Not</title>
+    <link rel="stylesheet" href="target.css" />
     <style>
-        html { height: 100%; }
-        body { margin: 0; }
-        .bg {
-            animation: slide 3s ease-in-out infinite alternate;
-            background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
-            bottom: 0; left: -50%; opacity: .5; position: fixed; right: -50%; top: 0; z-index: -1;
-        }
-        .bg2 { animation-direction: alternate-reverse; animation-duration: 4s; }
-        .bg3 { animation-duration: 5s; }
-        .content {
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 1.5em;
-            box-shadow: 0 0 .25em rgba(0, 0, 0, 0.25);
-            box-sizing: border-box;
-            left: 50%; padding: 10vmin; position: fixed; text-align: center; top: 50%;
-            transform: translate(-50%, -50%);
-        }
-        h1 { font-family: monospace; }
-        p { font-size: 1.5em; letter-spacing: .1em; line-height: 1.1em; }
-        #safeTimer { font-size: 2.5em; font-weight: bold; margin-top: 20px; color: #09f; }
-        #output { font-size: 1.5em; font-weight: bold; margin-top: 15px; }
-        @keyframes slide {
-            0% { transform: translateX(-25%); }
-            100% { transform: translateX(25%); }
-        }
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap');
+      /* Override target.css slightly for this view */
+      body {
+        display: grid;
+        place-items: center;
+        padding: 3rem 2rem; /* less top padding for vertical centering */
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        line-height: 1.8;
+      }
+      .card {
+        max-inline-size: 720px; /* make box bigger */
+        padding: 28px; /* a bit roomier */
+      }
+      .card * {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      }
+      .card h1 {
+        text-align: center;
+        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-size: 2.65rem; /* roughly double target.css */
+      }
+      .question-timer {
+        text-align: center;
+        margin: 0; /* rely on grid gap for exactly one newline */
+        color: var(--text-1);
+      }
+      .card h2 { margin-top: 0; }
+      .answer-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: hsl(from var(--surface-1) h s l / 0.5);
+        padding: 0.5ex 1ch;
+        font-size: 1.125rem;
+        border-radius: 12px;
+        color: var(--text-1);
+        justify-content: flex-start;
+        width: fit-content;
+        margin-inline: 0;
+      }
+      #userInput {
+        background: transparent;
+        border: 0;
+        color: var(--text-1);
+        outline: none;
+        width: 17ch; /* compact box that fits placeholder */
+        text-align: left;
+        line-height: 2; /* extra breathing room */
+      }
+      /* Hide number spinners to keep input clean */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      #submitBtn {
+        margin-top: 0.75rem;
+        width: 100%;
+        padding: 1ex 2ch;
+        border-radius: 12px;
+        border: 0;
+        cursor: pointer;
+        color: var(--text-1);
+        background: hsl(from var(--surface-1) h s l / 0.5);
+        line-height: 2;
+      }
+      #output {
+        margin: 0 0 0.5rem 0;
+        text-align: center;
+      }
+      /* Remove highlight from JS-generated <mark> */
+      mark {
+        background: transparent !important;
+        padding: 0;
+        color: inherit;
+      }
     </style>
-</head>
-<body>
-    <div class="bg"></div>
-    <div class="bg bg2"></div>
-    <div class="bg bg3"></div>
-
-    <div class="content">
+  </head>
+  <body>
+    <!-- Card layout and background style from target.html/target.css -->
+    <div class="card">
+      <div>
         <h1>MATH ME NOT</h1>
         <p>
-            Congratulations, you have stumbled on a restricted page! Solve
-            this question before the timer ends to access!
+          Congratulations, you have stumbled on a restricted page! Solve
+          this question before the timer ends to access!
         </p>
-        <p id="keypress"></p>
-        <div id="safeTimer"></div>
-        <input type="number" id="userInput" placeholder="Enter your answer here" />
-        <button id="submitBtn">Submit</button>
-        <div id="output"></div>
+      </div>
+
+      <!-- Timer + Question (set by JS) -->
+      <div id="safeTimer" class="question-timer"></div>
+
+      <div>
+        <h2>Submit your answer</h2>
+        <div class="answer-box">
+          <input
+            type="number"
+            id="userInput"
+            placeholder="answer"
+            aria-label="answer"
+          />
+        </div>
+        <button id="submitBtn" aria-label="submit answer">Submit</button>
+      </div>
     </div>
+
     <script src="anim.js"></script>
-</body>
+  </body>
 </html>
+      
