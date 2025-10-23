@@ -6,17 +6,17 @@
     <link rel="stylesheet" href="target.css" />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap');
-      /* Override target.css slightly for this view */
+
       body {
         display: grid;
         place-items: center;
-        padding: 3rem 2rem; /* less top padding for vertical centering */
+        padding: 3rem 2rem; 
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         line-height: 1.8;
       }
       .card {
-        max-inline-size: 720px; /* make box bigger */
-        padding: 28px; /* a bit roomier */
+        max-inline-size: 720px; 
+        padding: 28px; 
       }
       .card * {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -24,11 +24,11 @@
       .card h1 {
         text-align: center;
         font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-        font-size: 2.65rem; /* roughly double target.css */
+        font-size: 2.65rem; 
       }
       .question-timer {
         text-align: center;
-        margin: 0; /* rely on grid gap for exactly one newline */
+        margin: 0; 
         color: var(--text-1);
       }
       .card h2 { margin-top: 0; }
@@ -50,11 +50,10 @@
         border: 0;
         color: var(--text-1);
         outline: none;
-        width: 17ch; /* compact box that fits placeholder */
+        width: 17ch; 
         text-align: left;
-        line-height: 2; /* extra breathing room */
+        line-height: 2; 
       }
-      /* Hide number spinners to keep input clean */
       input[type="number"]::-webkit-outer-spin-button,
       input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -78,7 +77,6 @@
         margin: 0 0 0.5rem 0;
         text-align: center;
       }
-      /* Remove highlight from JS-generated <mark> */
       mark {
         background: transparent !important;
         padding: 0;
@@ -87,7 +85,6 @@
     </style>
   </head>
   <body>
-    <!-- Card layout and background style from target.html/target.css -->
     <div class="card">
       <div>
         <h1>MATH ME NOT</h1>
@@ -97,7 +94,6 @@
         </p>
       </div>
 
-      <!-- Timer + Question (set by JS) -->
       <div id="safeTimer" class="question-timer"></div>
 
       <div>
