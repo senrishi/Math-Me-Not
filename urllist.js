@@ -21,11 +21,11 @@ async function saveUrls() {
     if (!url.startsWith("http://") && !url.startsWith("https://")) {
       url = "https://" + url;
     }
-    //object to store the hostnames of the url 
+
     if (!obj.includes(url)) {
       obj.push(url);
       const hostname = new URL(url).hostname.replace(/www\./, "");
-      //object that assigns a null value (for the time) to the hostname
+
       time_obj[hostname] = null;
     }
   }
@@ -59,10 +59,8 @@ function clearUrl() {
 }
 
 function generateCaptcha() {
-  // Generate a random position from 3 to 16 inclusive (4x4 grid)
   captchaPosition = Math.floor(Math.random() * (16 - 3 + 1)) + 3;
 
-  // Build a 4x4 grid where the random position is marked with '*'
   let grid = "";
   let count = 1;
   for (let i = 0; i < 4; i++) {
@@ -91,10 +89,8 @@ function toggleCaptcha() {
   const panel = document.getElementById("captchaPanel");
   if (!panel) return;
   captchaOpen = !captchaOpen;
-  // Use smoother collapse animation via class toggle
   panel.classList.toggle("open", captchaOpen);
   if (captchaOpen) {
-    // Reset and generate a new challenge whenever opened
     generateCaptcha();
   }
 }
@@ -111,7 +107,6 @@ function submitCaptcha() {
   }
 
   if (ansNum === captchaPosition * captchaPosition) {
-    // Captcha solved; proceed to clear stored URLs
     clearUrl();
   } else {
     statusDiv.textContent = "Incorrect answer. Try again.";
@@ -121,25 +116,16 @@ function submitCaptcha() {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("addUrlsBtn").addEventListener("click", saveUrls);
-
-  // Add Enter key support for the URL input field
   document.getElementById("url").addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       saveUrls();
     }
   });
-
-  // Clearing is only available via captcha; no standalone button
-
-  // Captcha button expands the panel and generates a new challenge
   const captchaBtn = document.getElementById("captchaBtn");
   if (captchaBtn) captchaBtn.addEventListener("click", toggleCaptcha);
-
-  // Submit captcha answer
   const submitBtn = document.getElementById("captchaSubmit");
   if (submitBtn) submitBtn.addEventListener("click", submitCaptcha);
 
-  // Enter key submits the captcha answer
   const ansEl = document.getElementById("captchaAnswer");
   if (ansEl) {
     ansEl.addEventListener("keypress", (event) => {
