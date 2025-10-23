@@ -1,0 +1,174 @@
+
+:root {
+  --primary-900: hsl(256, 43%, 7%);
+  --primary-800: hsl(240, 24%, 13%);
+  --primary-700: hsl(243, 26%, 15%);
+  --primary-600: hsl(252, 9%, 22%);
+  --primary-500: hsl(259, 13%, 28%);
+  --primary-400: hsl(254, 22%, 32%);
+
+  --primary-300: hsl(251, 13%, 68%);
+  --primary-200: hsl(240, 15%, 76%);
+  --primary-100: hsl(240, 21%, 88%);
+
+  --neutral-100: hsl(0, 0%, 100%);
+
+  --accent-400: hsl(93, 60%, 69%);
+
+  --text-1: var(--neutral-100);
+  --text-2: var(--primary-100);
+  --text-3: var(--primary-200);
+
+  --surface-1: var(--primary-900);
+  --surface-2: var(--primary-800);
+  --surface-3: var(--primary-700);
+
+  --border-1: var(--primary-500); /* top */
+  --border-2: var(--primary-600); /* bottom */
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+  font-family: system-ui;
+}
+
+body {
+  min-block-size: 100vb;
+  background-size: cover;
+  color: var(--text-3);
+  background-color: var(--primary-900);
+  background-image: linear-gradient(
+      hsl(from var(--primary-700) h s l / 0.7) 0 0
+    ),
+    url("gold.png");
+  background-position: top left;
+  background-size: 300%;
+  line-height: 1.5;
+  padding: 10rem 2rem;
+}
+
+h1 {
+  color: var(--text-1);
+}
+
+h1 {
+  font-size: 1.325rem;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.text-accent {
+  color: var(--accent-400);
+}
+
+.flex-between {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.card {
+  max-inline-size: 500px;
+  margin-inline: auto;
+  padding: 21px;
+
+  display: grid;
+  gap: 1lh;
+}
+
+.referral-code {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: hsl(from var(--surface-1) h s l / 0.5);
+  padding: 0.5ex 1ch;
+  font-size: 1.125rem;
+  border-radius: 12px;
+  color: var(--text-1);
+  letter-spacing: 3px;
+}
+
+.copy {
+  cursor: pointer;
+  background: 0;
+  border: 0;
+  padding: 0;
+  height: 1.5lh;
+
+  svg {
+    fill: var(--text-1);
+    width: 3ch;
+    height: 3ch;
+  }
+}
+
+.referred-users {
+  text-align: end;
+}
+
+.user-count {
+  font-size: 1.125rem;
+  color: var(--text-1);
+}
+
+.rewards {
+  text-align: center;
+  color: var(--text-1);
+  background: hsl(from var(--surface-1) h s l / 0.5);
+  padding: 1ex 3ch;
+  border-radius: 12px;
+
+  h2 {
+    color: var(--text-3);
+  }
+}
+
+/* .card {
+  background-color: var(--surface-1);
+  border-radius: 1rem;
+
+  border: transparent 1px solid;
+  background: radial-gradient(
+        circle at 50% 250%,
+        var(--primary-500),
+        var(--surface-1)
+      )
+      padding-box,
+    linear-gradient(var(--border-1), var(--border-2)) border-box;
+} */
+
+.card {
+  --border-width: 1px;
+  border-radius: 1rem;
+  position: relative;
+
+  background: hsl(from var(--surface-3) h s l / 0.25);
+  backdrop-filter: blur(12px);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  border: var(--border-width) solid transparent;
+  background: linear-gradient(var(--border-1), var(--border-2)) border-box;
+  mask: linear-gradient(black, black) border-box,
+    linear-gradient(black, black) padding-box;
+  mask-composite: subtract;
+}

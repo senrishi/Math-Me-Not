@@ -1,27 +1,13 @@
-Random Firefox based extension, built with 1 week knowledge of JS, HTML and CSS. Math Me Not helps you cut down on any of your website addiction, by treating you with a math problem whenever you open said website. Styling is a bit messed up, but will work on that in the future. 
+Firefox extension to help you reduce screen time of any website, by blocking domains in a *math-y* way.
 
-ONLY WORKS FOR FIREFOX OR ANY FIREFOX FORKED CLONE
+### Usage
+- From the extensions toolbar, click on the **Math Me Not** icon. Enter the 
+domain name or URL you wish to block. Separate multiple URLs with a space.
+Example:
+``` 
+youtube.com instagram.com
+```
 
-## Installation
-1. Clone this repo - ```git clone https://github.com/senrishi/Math-Me-Not.git```
-2. Open ```about:debugging``` in Firefox
-3. Click This Firefox from the left panel.
-4. Click Load Temporary Add-on and select the manifest.json file from the cloned repo. 
-
-## Usage
-Click on the Math Me Not extension icon, and add whatever URL you want to block. 
-
-# To do
-Submit Extension to Mozilla Add-ons 
-
-## URLList
-1. Add some CSS styling
-2. Improve button layout
-3. ~~Add another maths question before user clears URLs~~
-4. Liquid glass effect (because why not)
-
-## Popup 
-1. Improve font
-2. Add a small tab bar just above the box
-3. Consider different backgrounds using CSS (maybe implement per website basis color scheme)
-4. ~~Add a check for Cmd + Space. If detected, display error~~ (nvm MacOs is pretty stingy with CMD + space, this was a little hack which lets you easily multiply)
+- To unblock the websites, click on the captcha and solve the challenge 
+under it. Position numbering is given below. 
+![[assets/example.png]]
